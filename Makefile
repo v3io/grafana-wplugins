@@ -15,6 +15,6 @@ grafana-wplugins:
 	docker build \
 	--file ./Dockerfile \
 	--tag $(IGUAZIO_REPOSITORY)grafana-wplugins:$(GRAFANA_VERSION) \
-        --build-arg GRAFANA_VERSION=$(GRAFANA_VERSION) \
+	--build-arg GRAFANA_VERSION=$(GRAFANA_VERSION) \
 	.
 
