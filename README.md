@@ -3,5 +3,5 @@ Dockerized Grafana with built-in plugins. Public pull access from: https://conso
 
 ## Building The Image
 ```sh
-GRAFANA_VERSION:<grafana-version> make
+GRAFANA_VERSION:<grafana-version> make build
 ```
