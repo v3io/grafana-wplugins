@@ -3,5 +3,5 @@ Dockerized Grafana with built-in plugins. Public pull access from: https://conso
 
 ## Building The Image
 ```sh
-docker build -t gcr.io/iguazio/grafana-wplugins:<grafana-version> --build-arg GRAFANA_VERSION=<grafana-version> .
+GRAFANA_VERSION:<grafana-version> make build
 ```
