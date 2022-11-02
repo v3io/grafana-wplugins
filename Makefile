@@ -1,4 +1,4 @@
-GRAFANA_VERSION ?= 7.2.0
+GRAFANA_VERSION ?= 9.2.2
 IGUAZIO_REPOSITORY ?= gcr.io/iguazio/
 
 
