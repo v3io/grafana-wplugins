@@ -34,7 +34,8 @@ RUN grafana-cli plugins install agenty-flowcharting-panel \
     && grafana-cli plugins install snuids-radar-panel \
     && grafana-cli plugins install vonage-status-panel \
     && grafana-cli plugins install williamvenner-timepickerbuttons-panel \
-    && grafana-cli plugins install yesoreyeram-boomtable-panel
+    && grafana-cli plugins install yesoreyeram-boomtable-panel \
+    && grafana-cli plugins install tdengine-datasource
 
 FROM grafana/grafana:$GRAFANA_VERSION
 COPY --from=plugins_fetcher /var/lib/grafana/plugins /opt/plugins
