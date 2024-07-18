@@ -1,4 +1,4 @@
-# Copyright 2019 Iguazio
+# Copyright 2024 Iguazio
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 ARG GRAFANA_VERSION
 FROM grafana/grafana:$GRAFANA_VERSION as plugins_fetcher
 
@@ -38,4 +39,10 @@ RUN grafana-cli plugins install agenty-flowcharting-panel \
     && grafana-cli plugins install tdengine-datasource
 
 FROM grafana/grafana:$GRAFANA_VERSION
+
+# update OS packages
+USER root
+RUN apk upgrade --no-cache
+
+USER grafana
 COPY --from=plugins_fetcher /var/lib/grafana/plugins /opt/plugins
