@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 
-ARG GRAFANA_VERSION=latest
+ARG GRAFANA_VERSION=11.5.6
 FROM grafana/grafana:${GRAFANA_VERSION} AS plugins_fetcher
 
 RUN grafana cli plugins install agenty-flowcharting-panel \
@@ -38,14 +38,16 @@ RUN grafana cli plugins install agenty-flowcharting-panel \
     && grafana cli plugins install yesoreyeram-boomtable-panel \
     && grafana cli plugins install tdengine-datasource
 
-ARG GRAFANA_VERSION=latest
+ARG GRAFANA_VERSION=11.5.6
 FROM grafana/grafana:${GRAFANA_VERSION}
 
-# update OS packages
+# update OS packages for security patches
 USER root
 # This build arg ensures the following RUN command always executes (cache invalidation)
 ARG BUILD_DATE
-RUN apk upgrade --no-cache
+RUN apk upgrade --no-cache \
+    && apk add --no-cache --upgrade busybox \
+    && rm -rf /var/cache/apk/*
 
 USER grafana
 COPY --from=plugins_fetcher /var/lib/grafana/plugins /opt/plugins
