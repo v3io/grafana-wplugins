@@ -13,12 +13,19 @@
 # limitations under the License.
 #
 
-GRAFANA_VERSION ?= 9.2.20
+GRAFANA_VERSION ?= 11.5.6
 IGUAZIO_REPOSITORY ?= gcr.io/iguazio/
+CACHE_FROM ?=
 
 # if GRAFANA_VERSION has "-" then take the first part
 # we use the `-` for github releases to add the build number
-GRAFANA_VERSION := $(firstword $(subst -, ,$(GRAFANA_VERSION)))
+GRAFANA_VERSION_CLEAN := $(firstword $(subst -, ,$(GRAFANA_VERSION)))
+
+# Build cache options
+CACHE_OPTS :=
+ifneq ($(CACHE_FROM),)
+	CACHE_OPTS := --cache-from $(IGUAZIO_REPOSITORY)grafana-wplugins:$(GRAFANA_VERSION_CLEAN)
+endif
 
 
 .PHONY: all
@@ -31,7 +38,7 @@ build: grafana-wplugins
 
 .PHONY: push
 push: 
-	docker push $(IGUAZIO_REPOSITORY)grafana-wplugins:$(GRAFANA_VERSION)
+	docker push $(IGUAZIO_REPOSITORY)grafana-wplugins:$(GRAFANA_VERSION_CLEAN)
 
 .PHONY: release
 release: build push
@@ -39,10 +46,10 @@ release: build push
 
 .PHONY: grafana-wplugins
 grafana-wplugins:
-	docker \
-	build \
-	--platform linux/amd64 \
+	docker build \
 	--file ./Dockerfile \
-	--tag $(IGUAZIO_REPOSITORY)grafana-wplugins:$(GRAFANA_VERSION) \
-	--build-arg GRAFANA_VERSION=$(GRAFANA_VERSION) \
+	--tag $(IGUAZIO_REPOSITORY)grafana-wplugins:$(GRAFANA_VERSION_CLEAN) \
+	--build-arg GRAFANA_VERSION=$(GRAFANA_VERSION_CLEAN) \
+	--build-arg BUILD_DATE=$(shell date -u +%Y-%m-%dT%H:%M:%SZ) \
+	$(CACHE_OPTS) \
 	.
