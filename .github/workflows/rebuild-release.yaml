@@ -27,6 +27,9 @@ on:
         type: boolean
         default: true
 
+permissions:
+  contents: read
+
 jobs:
   get-release-tag:
     runs-on: ubuntu-latest
