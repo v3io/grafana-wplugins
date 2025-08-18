@@ -37,7 +37,7 @@ jobs:
       release_tag: ${{ steps.determine-tag.outputs.release_tag }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Get latest release tag
       id: get-latest
@@ -67,7 +67,7 @@ jobs:
     needs: get-release-tag
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         ref: ${{ needs.get-release-tag.outputs.release_tag }}
 
