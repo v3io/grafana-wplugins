@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - name: Login to GCR
       uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # 3.6.0
