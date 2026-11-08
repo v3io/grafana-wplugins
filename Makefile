@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 
-GRAFANA_VERSION ?= 11.5.6
+GRAFANA_VERSION ?= 11.6.16
 IGUAZIO_REPOSITORY ?= gcr.io/iguazio/
 CACHE_FROM ?=
 
