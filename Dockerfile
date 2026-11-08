@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 
-ARG GRAFANA_VERSION=11.5.6
+ARG GRAFANA_VERSION=11.6.16
 FROM grafana/grafana:${GRAFANA_VERSION} AS plugins_fetcher
 
 RUN grafana cli plugins install agenty-flowcharting-panel \
@@ -37,7 +37,7 @@ RUN grafana cli plugins install agenty-flowcharting-panel \
     && grafana cli plugins install williamvenner-timepickerbuttons-panel \
     && grafana cli plugins install yesoreyeram-boomtable-panel
 
-ARG GRAFANA_VERSION=11.5.6
+ARG GRAFANA_VERSION=11.6.16
 FROM grafana/grafana:${GRAFANA_VERSION}
 
 # update OS packages for security patches
